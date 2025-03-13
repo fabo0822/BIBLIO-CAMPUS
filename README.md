@@ -2,17 +2,17 @@
 
 ## Listar todos los libros disponibles
 ```sql
-SELECT * FROM libro WHERE disponible = DISPONIBLE ;
+SELECT * FROM libro WHERE disponible = TRUE ;
 ```
 
 ## Buscar libros por género
 ```sql
-SELECT * FROM libro WHERE genero = 'realismo magico';
+SELECT * FROM libro WHERE genero = 'magia';
 ```
 
 ## Obtener información de un libro por ISBN
 ```sql
-SELECT * FROM libro WHERE ISBN = '9780307474728';
+SELECT * FROM libro WHERE ISBN = '1235';
 ```
 
 ## Contar el número de libros en la biblioteca
@@ -27,7 +27,7 @@ SELECT * FROM autor ORDER BY apellido, nombre;
 
 ## Buscar autores por nombre
 ```sql
-SELECT * FROM autor WHERE nombre LIKE '%Gabriel%' OR apellido LIKE '%García%';
+SELECT * FROM autor WHERE nombre LIKE '%kevinho%' OR apellido LIKE '%morfeo%';
 ```
 
 ## Obtener todos los libros de un autor específico
@@ -36,7 +36,7 @@ SELECT l.id, l.titulo, l.genero, l.isbn, l.disponible
 FROM libro l
 JOIN librosAutor la ON l.id = la.id
 JOIN autor a ON la.id = a.id
-WHERE a.nombre = 'Gabriel' AND a.apellido = 'García Márquez';
+WHERE a.nombre = 'isabela' AND a.apellido = 'hancok';
 ```
 
 ## Listar todas las ediciones de un libro
@@ -44,7 +44,7 @@ WHERE a.nombre = 'Gabriel' AND a.apellido = 'García Márquez';
 SELECT p.id,  p.fecha_publicacion, p.edicion
 FROM publicacion p
 JOIN libro l ON p.id = l.id
-WHERE l.titulo = 'Cien años de soledad'
+WHERE l.titulo = 'solo leveling'
 ORDER BY p.edicion;
 ```
 
@@ -53,7 +53,7 @@ ORDER BY p.edicion;
 SELECT p.id, p.fecha_publicacion, p.edicion
 FROM publicacion p
 JOIN libro l ON p.id = l.id
-WHERE l.titulo = 'Cien años de soledad'
+WHERE l.titulo = 'one piece'
 ORDER BY p.edicion DESC
 LIMIT 1;
 ```
@@ -63,7 +63,7 @@ LIMIT 1;
 SELECT COUNT(*) AS total_ediciones
 FROM publicacion p
 JOIN libro l ON p.id = l.id
-WHERE l.titulo = 'Cien años de soledad';
+WHERE l.titulo = 'one piece';
 ```
 
 ## Listar todas las transacciones de préstamo
@@ -90,7 +90,7 @@ WHERE t.fecha_devolucion_real IS NULL;
 ```sql
 SELECT COUNT(*) AS total_transacciones
 FROM transaccion
-WHERE id = (SELECT id FROM miembro WHERE nombre = 'Ana' AND apellido = 'Gómez');
+WHERE id = (SELECT id FROM miembro WHERE nombre = 'fabian' AND apellido = 'ortega');
 ```
 
 ## Listar todos los miembros de la biblioteca
@@ -100,7 +100,7 @@ SELECT * FROM miembro ORDER BY apellido, nombre;
 
 ## Buscar un miembro por nombre
 ```sql
-SELECT * FROM miembro WHERE nombre LIKE '%Ana%' OR apellido LIKE '%Góm%';
+SELECT * FROM miembro WHERE nombre LIKE '%fabian%' OR apellido LIKE '%ortega%';
 ```
 
 ## Obtener las transacciones de un miembro específico
@@ -108,7 +108,7 @@ SELECT * FROM miembro WHERE nombre LIKE '%Ana%' OR apellido LIKE '%Góm%';
 SELECT t.id, l.titulo, t.fecha_prestamo, t.fecha_devolucion_esperada, t.fecha_devolucion_real
 FROM transaccion t
 JOIN libro l ON t.id = l.id
-WHERE t.id = (SELECT id FROM miembro WHERE nombre = 'Ana' AND apellido = 'Gómez')
+WHERE t.id = (SELECT id FROM miembro WHERE nombre = 'fabian' AND apellido = 'ortega')
 ORDER BY t.fecha_prestamo DESC;
 ```
 
@@ -128,7 +128,7 @@ SELECT t.id, CONCAT(m.nombre, ' ', m.apellido) AS miembro,
        t.fecha_prestamo, t.fecha_devolucion_esperada, t.fecha_devolucion_real
 FROM transaccion t
 JOIN miembro m ON t.id = m.id
-WHERE t.id = (SELECT id FROM libro WHERE titulo = 'Cien años de soledad')
+WHERE t.id = (SELECT id FROM libro WHERE titulo = 'solo leveling')
 ORDER BY t.fecha_prestamo DESC;
 ```
 
